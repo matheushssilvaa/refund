@@ -32,10 +32,11 @@ export default function Button({
 	variant,
 	size,
 	disabled,
+	className,
 	...props
 }: ButtonProps) {
 	return (
-		<button className={variantsButton({ variant, size, disabled })} {...props}>
+		<button className={variantsButton({ variant, size, className, disabled })} {...props}>
 			{children}
 		</button>
 	)

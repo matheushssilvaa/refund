@@ -24,12 +24,13 @@ export default function Container({
 	as = "div",
 	children,
 	className,
+	size,
 	...props
 }: ContainerProps) {
 	return React.createElement(
 		as,
 		{
-			className: containerVariants({ size: "md", className }),
+			className: containerVariants({ size, className }),
 			...props,
 		},
 		children

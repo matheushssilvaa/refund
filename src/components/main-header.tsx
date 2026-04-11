@@ -21,7 +21,9 @@ export default function MainHeader({ className, ...props }: MainHeaderProps) {
 
 			<div className="flex items-center gap-3">
 				<NavLink variant="default" link="#" >Solicitações de reembolso</NavLink>
-				<Button variant="default">Nova solicitação</Button>
+				<Link to="/nova-solicitacao">
+					<Button variant="default">Nova solicitação</Button>
+				</Link>
 			</div>
 		</Container>
 	);
