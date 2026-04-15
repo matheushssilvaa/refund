@@ -19,8 +19,8 @@ export default function RequestPage() {
 						</div>
 
 						<div className="flex gap-4">
-							<div className="w-65.5">
-								<SelectInput label="Categoria" optionsData={[
+							<div className="w-full">
+								<SelectInput className="w-full" label="Categoria" optionsData={[
 									{
 										option: "Alimentação", value: "Alimentação"
 									},
@@ -39,7 +39,7 @@ export default function RequestPage() {
 								]} />
 							</div>
 
-							<div className="w[154px]">
+							<div className="w-38.5">
 								<Input
 									type="text"
 									label="Valor"
@@ -58,7 +58,12 @@ export default function RequestPage() {
 						</div>
 
 						<div>
-							<Button className="flex justify-center w-full" type="submit" variant="default">Enviar</Button>
+							<Button
+								className="flex justify-center w-full"
+								type="submit"
+								variant="default">
+								Enviar
+							</Button>
 						</div>
 					</form>
 				</div>

@@ -28,30 +28,37 @@ export default function HomePage() {
 
 			<RequestList itens={[
 				{
+					id: "1",
 					name: "Rodrigo",
 					service: "Alimentação",
 					value: "34,78"
 				},
 				{
+					id: "2",
 					name: "Tamires",
 					service: "Hospedagem",
 					value: "1.200,00"
 				},
 				{
+					id: "3",
 					name: "Lara",
 					service: "Alimentação",
 					value: "12,35"
 				},
 				{
+					id: "4",
 					name: "Elias",
 					service: "Transporte",
 					value: "47,65"
-				}, {
+				},
+				{
+					id: "5",
 					name: "Thiago",
 					service: "Serviços",
 					value: "99,90"
-				}
-				, {
+				},
+				{
+					id: "6",
 					name: "Vinicius",
 					service: "Outros",
 					value: "25,89"

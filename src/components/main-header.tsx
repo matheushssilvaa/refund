@@ -20,7 +20,9 @@ export default function MainHeader({ className, ...props }: MainHeaderProps) {
 			</Link>
 
 			<div className="flex items-center gap-3">
-				<NavLink variant="default" link="#" >Solicitações de reembolso</NavLink>
+				<Link to="/">
+					<NavLink variant="default" >Solicitações de reembolso</NavLink>
+				</Link>
 				<Link to="/nova-solicitacao">
 					<Button variant="default">Nova solicitação</Button>
 				</Link>

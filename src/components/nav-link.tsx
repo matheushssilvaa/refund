@@ -3,7 +3,7 @@ import { tv, type VariantProps } from "tailwind-variants";
 import Icon from "./icon";
 
 const navLinkVariants = tv({
-	base: "h-[48px] flex items-center gap-[7px] text-[14px]",
+	base: "h-[48px] flex items-center gap-[7px] text-[14px] cursor-pointer",
 	variants: {
 		variant: {
 			default: "text-gray-200 hover:text-green-100 active:text-green-100 font-semibold"
@@ -19,9 +19,21 @@ const navLinkVariants = tv({
 	}
 })
 
+const navLinkIconVariant = tv({
+	base: "",
+	variants: {
+		iconVariant: {
+			primary: "stroke-green-100",
+			secundary: "stroke-white"
+		}
+	}
+})
+
 interface NavLinkProps extends
-	VariantProps<typeof navLinkVariants> {
-	link: string
+	VariantProps<typeof navLinkVariants>,
+	VariantProps<typeof navLinkIconVariant>,
+	React.ComponentProps<"button"> {
+	link?: string
 	icon?: React.FC<React.ComponentProps<"svg">>;
 	children: React.ReactNode
 }
@@ -30,16 +42,20 @@ export default function NavLink({
 	link,
 	icon,
 	variant,
+	iconVariant,
 	size,
-	children
+	className,
+	children,
+	...props
 }: NavLinkProps) {
 	return (
-		<a href={link} className={navLinkVariants({ variant, size })}>
+		<button className={navLinkVariants({ variant, size, className })} {...props}>
 			{icon &&
 				<Icon
 					svg={icon}
+					className={navLinkIconVariant({ iconVariant })}
 				/>}
 			{children}
-		</a>
+		</button>
 	)
 }
