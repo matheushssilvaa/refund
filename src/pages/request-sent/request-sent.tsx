@@ -15,7 +15,7 @@ export default function RequestSentPage() {
 					<div className="flex justify-center w-full">
 						<Icon svg={RequestSentIcon} className="w-27.5 h-27.5" />
 					</div>
-					<p>
+					<p className="text-[14px] text-gray-200">
 						Agora é apenas aguardar! Sua solicitação será analisada
 						e, em breve, o setor financeiro irá entrar em contato com você.
 					</p>

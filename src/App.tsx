@@ -1,5 +1,3 @@
-import Container from "./components/container"
-import MainHeader from "./components/main-header"
 import { BrowserRouter, Route, Routes } from "react-router"
 import HomePage from "./pages/home/home"
 import RequestPage from "./pages/new-request/new-request"
