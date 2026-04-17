@@ -23,7 +23,7 @@ export default function MainHeader({ className, ...props }: MainHeaderProps) {
 				<Link to="/">
 					<NavLink variant="default" >Solicitações de reembolso</NavLink>
 				</Link>
-				<Link to="/nova-solicitacao">
+				<Link to="/new-refund">
 					<Button variant="default">Nova solicitação</Button>
 				</Link>
 			</div>
