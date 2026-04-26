@@ -1,10 +1,12 @@
 export interface Receipt {
-	id: string;
-	originalFilename: string;
-	filename: string;
-	path: string;
-	extname: string;
-	refundId: string;
-	createdAt: string;
-	updatedAt: string;
+	receipt: {
+		id: string;
+		originalFilename: string;
+		filename: string;
+		path: string;
+		extname: string;
+		refundId: string;
+		createdAt: string;
+		updatedAt: string;
+	}
 }

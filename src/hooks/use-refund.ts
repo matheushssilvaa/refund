@@ -1,7 +1,15 @@
 // use-refund.ts
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { fetcher } from "../helpers/api";
-import { createSerializer, parseAsInteger, parseAsString, useQueryState } from "nuqs";
+import { api, fetcher } from "../helpers/api";
+import {
+	createSerializer,
+	parseAsInteger,
+	parseAsString,
+	useQueryState
+} from "nuqs";
+
+import { type Receipt } from "../models/Receipt";
+import type { FormRefundSchema } from "../schema/schemas";
 
 export default function useRefund() {
 	const [page, setPage] = useQueryState('page', parseAsInteger.withDefault(1))
@@ -19,6 +27,41 @@ export default function useRefund() {
 		placeholderData: keepPreviousData
 	})
 
+	async function createRefundFile(payload: FormRefundSchema) {
+		try {
+			const { data } = await api.post<Receipt>("/receipts", {
+				receiptFile: payload.receiptFile[0]
+			},
+				{
+					headers: {
+						"Content-Type": "multipart/form-data"
+					}
+				}
+			)
+			return data.receipt.id
+		} catch (error) {
+			console.error(error)
+			throw error
+		}
+	}
+
+	async function createRefund(payload: FormRefundSchema) {
+		try {
+			const receiptId = await createRefundFile(payload)
+
+			const { data } = await api.post("/refunds", {
+				title: payload.title,
+				category: payload.category,
+				value: payload.value,
+				receipt: receiptId
+			})
+			return data
+		} catch (error) {
+			console.error(error)
+			throw error
+		}
+	}
+
 	return {
 		refound: data?.data,
 		isLoadingRefound: isLoading,
@@ -27,6 +70,7 @@ export default function useRefund() {
 		searchPage: {
 			page,
 			setParamPage: setPage
-		}
+		},
+		createRefund
 	}
 }

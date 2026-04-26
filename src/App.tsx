@@ -1,9 +1,9 @@
 import { BrowserRouter, Route, Routes } from "react-router"
 import HomePage from "./pages/home/home"
-import RequestPage from "./pages/new-request/new-request"
+import RequestPage from "./pages/new-refund/new-refund"
 import LayoutMain from "./pages/layout-main"
-import SingleRequestPage from "./pages/single-request/single-request"
-import RequestSentPage from "./pages/request-sent/request-sent"
+import SingleRequestPage from "./pages/single-refund/single-refund"
+import RequestSentPage from "./pages/refund-sent/refund-sent"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { NuqsAdapter } from "nuqs/adapters/react"
 

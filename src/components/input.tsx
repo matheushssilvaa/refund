@@ -1,9 +1,7 @@
-import { useRef, useState } from "react"
+import React from "react"
 import type { InputHTMLAttributes } from "react"
 import { tv, type VariantProps } from "tailwind-variants"
 import cv from "classnames"
-import ButtonIcon from "./icon-button"
-import CloudArrowUp from "../assets/icons/CloudArrowUp.svg?react"
 
 const inputVariants = tv({
 	base: "rounded-lg border px-4 border-gray-300 outline-0 text-[14px] flex items-center",
@@ -25,6 +23,7 @@ interface InputProps
 	extends Omit<InputHTMLAttributes<HTMLInputElement>, "size">,
 	VariantProps<typeof inputVariants> {
 	label?: string
+	error?: React.ReactNode
 }
 
 export default function Input({
@@ -32,62 +31,10 @@ export default function Input({
 	variant,
 	size,
 	label,
+	error,
 	className,
 	...props
 }: InputProps) {
-	const isFile = props.type === "file"
-
-	const fileRef = useRef<HTMLInputElement>(null)
-	const [fileName, setFileName] = useState("Nome do arquivo.pdf")
-
-	if (isFile) {
-		const handleOpenFile = () => {
-			fileRef.current?.click()
-		}
-
-		const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-			const file = e.target.files?.[0]
-			if (file) setFileName(file.name)
-		}
-
-		return (
-			<div className={cv("flex gap-2 flex-col focus-within:text-green-100", className)}>
-				{label && (
-					<label htmlFor={id} className="text-sm transition">
-						{label}
-					</label>
-				)}
-
-				<div
-					className={cv(
-						inputVariants({ variant, size }),
-						"justify-between overflow-hidden pr-0! w-full"
-					)}
-				>
-					<span className="truncate">
-						{fileName}
-					</span>
-
-					<ButtonIcon
-						type="button"
-						onClick={handleOpenFile}
-						icon={CloudArrowUp}
-						iconVariant="primary"
-						className="self-stretch rounded-l-none"
-					/>
-
-					<input
-						ref={fileRef}
-						type="file"
-						className="hidden"
-						onChange={handleChange}
-						{...props}
-					/>
-				</div>
-			</div>
-		)
-	}
-
 	return (
 		<div className={cv("flex gap-2 flex-col focus-within:text-green-100", className)}>
 			{label && (
@@ -101,6 +48,12 @@ export default function Input({
 				className={inputVariants({ variant, size })}
 				{...props}
 			/>
+
+			{error && (
+				<p className="text-sm text-red-600">
+					{error}
+				</p>
+			)}
 		</div>
 	)
 }

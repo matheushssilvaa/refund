@@ -1,3 +1,4 @@
+import type React from "react"
 import { tv, type VariantProps } from "tailwind-variants"
 
 const selectInputVariants = tv({
@@ -26,6 +27,7 @@ interface SelectInputProps
 	VariantProps<typeof selectInputVariants> {
 	optionsData: SelectOption[]
 	label?: string
+	error?: React.ReactNode
 }
 
 export default function SelectInput({
@@ -33,7 +35,10 @@ export default function SelectInput({
 	variant,
 	size,
 	label,
-	optionsData
+	error,
+	optionsData,
+	className,
+	...props
 }: SelectInputProps) {
 	return (
 		<div
@@ -43,12 +48,22 @@ export default function SelectInput({
 					{label}
 				</label>
 			)}
-			<select className={selectInputVariants({ variant, size })}>
-				<option value="">Selecione</option>
+			<select className={selectInputVariants({
+				variant,
+				size,
+				className
+			})}
+				{...props}>
 				{optionsData.map(e => (
 					<option key={e.value} value={e.value}>{e.option}</option>
 				))}
 			</select>
+
+			{error && (
+				<p className="text-sm text-red-600">
+					{error}
+				</p>
+			)}
 		</div>
 	)
 }
