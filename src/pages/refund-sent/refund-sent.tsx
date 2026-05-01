@@ -20,7 +20,7 @@ export default function RequestSentPage() {
 						e, em breve, o setor financeiro irá entrar em contato com você.
 					</p>
 				</div>
-				<Link to="/nova-solicitacao">
+				<Link to="/new-refund">
 					<Button className="w-full flex justify-center mt-10">
 						Nova Solicitação
 					</Button>

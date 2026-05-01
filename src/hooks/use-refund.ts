@@ -60,7 +60,7 @@ export default function useRefund() {
 				receipt: receiptId
 			})
 			toast.success("Recibo criado com sucesso!")
-			navigate('/')
+			navigate('/refund-sent')
 			return data
 		} catch (error) {
 			toast.error(`Erro ao criar o recibo. Mensagem: ${error.message}`)
