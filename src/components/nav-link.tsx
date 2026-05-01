@@ -1,6 +1,7 @@
 import type React from "react"
 import { tv, type VariantProps } from "tailwind-variants";
 import Icon from "./icon";
+import { Link } from "react-router";
 
 const navLinkVariants = tv({
 	base: "h-[48px] flex items-center gap-[7px] text-[14px] cursor-pointer",
@@ -49,6 +50,7 @@ export default function NavLink({
 	...props
 }: NavLinkProps) {
 	return (
+
 		<button className={navLinkVariants({ variant, size, className })} {...props}>
 			{icon &&
 				<Icon
@@ -57,5 +59,6 @@ export default function NavLink({
 				/>}
 			{children}
 		</button>
+
 	)
 }

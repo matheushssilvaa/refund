@@ -6,6 +6,7 @@ import SingleRequestPage from "./pages/single-refund/single-refund"
 import RequestSentPage from "./pages/refund-sent/refund-sent"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { NuqsAdapter } from "nuqs/adapters/react"
+import { Toaster } from "sonner"
 
 const queryClient = new QueryClient()
 
@@ -14,6 +15,7 @@ function App() {
 		<QueryClientProvider client={queryClient}>
 			<NuqsAdapter>
 				<BrowserRouter>
+					<Toaster position="bottom-center" />
 					<Routes>
 						<Route element={<LayoutMain />}>
 							<Route index element={<HomePage />} />

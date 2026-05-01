@@ -18,7 +18,6 @@ export default function RequestPage() {
 	async function onSubmit(payload: FormRefundSchema) {
 		try {
 			await createRefund(payload)
-			console.log("Formulário enviado!", payload)
 		} catch (error) {
 			console.error(error)
 		}

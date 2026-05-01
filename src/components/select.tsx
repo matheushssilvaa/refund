@@ -25,7 +25,7 @@ type SelectOption = {
 interface SelectInputProps
 	extends Omit<React.SelectHTMLAttributes<HTMLSelectElement>, "size">,
 	VariantProps<typeof selectInputVariants> {
-	optionsData: SelectOption[]
+	optionsData?: SelectOption[]
 	label?: string
 	error?: React.ReactNode
 }
@@ -54,7 +54,7 @@ export default function SelectInput({
 				className
 			})}
 				{...props}>
-				{optionsData.map(e => (
+				{optionsData?.map(e => (
 					<option key={e.value} value={e.value}>{e.option}</option>
 				))}
 			</select>

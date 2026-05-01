@@ -10,6 +10,8 @@ import {
 
 import { type Receipt } from "../models/Receipt";
 import type { FormRefundSchema } from "../schema/schemas";
+import { toast } from "sonner";
+import { useNavigate } from "react-router";
 
 export default function useRefund() {
 	const [page, setPage] = useQueryState('page', parseAsInteger.withDefault(1))
@@ -24,8 +26,10 @@ export default function useRefund() {
 		queryKey: ["refunds", page, q],
 		queryFn: () => fetcher(`/refunds${toSearchParams({ page, q })}`)
 			.then((res) => res.refunds),
-		placeholderData: keepPreviousData
+		placeholderData: keepPreviousData,
 	})
+
+	const navigate = useNavigate()
 
 	async function createRefundFile(payload: FormRefundSchema) {
 		try {
@@ -55,9 +59,11 @@ export default function useRefund() {
 				value: payload.value,
 				receipt: receiptId
 			})
+			toast.success("Recibo criado com sucesso!")
+			navigate('/')
 			return data
 		} catch (error) {
-			console.error(error)
+			toast.error(`Erro ao criar o recibo. Mensagem: ${error.message}`)
 			throw error
 		}
 	}

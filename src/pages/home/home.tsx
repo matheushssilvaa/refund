@@ -8,6 +8,7 @@ import ClaretRightIcon from "../../assets/icons/CaretRight.svg?react"
 import useRefund from "../../hooks/use-refund";
 import React, { useState } from "react";
 import { debounce } from "../../helpers/utils";
+import Skeleton from "../../components/skeleton";
 
 export default function HomePage() {
 	const {
@@ -53,7 +54,7 @@ export default function HomePage() {
 					</div>
 				</div>
 
-				{isLoadingRefound ? "Carregando" : <RequestList data={refound} />}
+				{isLoadingRefound ? <Skeleton quantity={10} /> : <RequestList data={refound} />}
 
 				<div className="w-full flex items-center justify-center gap-2.5 mt-7.5">
 					<ButtonIcon

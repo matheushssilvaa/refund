@@ -1,46 +1,69 @@
 import Card from "../../components/card";
 import Input from "../../components/input";
-import SelectInput from "../../components/select";
 import Button from "../../components/button";
 import FileIcon from "../../assets/icons/File.svg?react"
 import NavLink from "../../components/nav-link"
 
 import * as AlertDialog from "@radix-ui/react-alert-dialog";
+import { useParams } from "react-router";
+import useSingleRefund from "../../hooks/use-single-refund";
+import { formatPrice } from "../../helpers/format-price";
 
 export default function SingleRequestPage() {
+	const { id } = useParams()
+	const {
+		data,
+		getDownloadURLImage,
+		deleteReceipt,
+		deleteRefund
+	} = useSingleRefund(id)
+
+	const categoryMapper = {
+		food: "Alimentação",
+		hosting: "Hospedagem",
+		transport: "Transporte",
+		services: "Serviços",
+		other: "Outros"
+	};
+
+	const handleDeleteRefund = () => {
+		deleteReceipt(data?.refund?.receipt?.id!)
+		deleteRefund(id!)
+	}
+
 	return (
 		<div className="w-full flex justify-center">
 			<Card className="w-lg">
 				<div className="space-y-3">
-					<h1 className="text-xl font-bold">Solicitação de reembolso</h1>
-					<p className="text-sm">Dados da despesa para solicitar reembolso</p>
+					<h1 className="text-xl font-bold">
+						Solicitação de reembolso
+					</h1>
+					<p className="text-sm">
+						Dados da despesa para solicitar reembolso
+					</p>
 				</div>
 
 				<div className="flex justify-center w-full mt-6">
-					<form className="w-full gap-6 space-y-6">
+					<div className="w-full gap-6 space-y-6">
 						<div className="w-full">
-							<Input label="Nome da solicitação" type="text" />
+							<Input
+								label="Nome da solicitação"
+								type="text"
+								defaultValue={data?.refund?.title}
+							/>
 						</div>
 
 						<div className="flex gap-4">
 							<div className="w-full">
-								<SelectInput className="w-full" label="Categoria" optionsData={[
-									{
-										option: "Alimentação", value: "Alimentação"
-									},
-									{
-										option: "Hospedagem", value: "Hospedagem"
-									},
-									{
-										option: "Transporte", value: "Transporte"
-									},
-									{
-										option: "Serviços", value: "Serviços"
-									},
-									{
-										option: "Outros", value: "Outros"
+								<Input
+									label="Categoria"
+									type="text"
+									defaultValue={
+										categoryMapper[
+										(data?.refund?.category) as keyof typeof categoryMapper
+										]
 									}
-								]} />
+								/>
 							</div>
 
 							<div className="w-38.5">
@@ -48,6 +71,7 @@ export default function SingleRequestPage() {
 									type="text"
 									label="Valor"
 									placeholder="0,00"
+									defaultValue={formatPrice(data?.refund?.value!)}
 								/>
 							</div>
 
@@ -59,7 +83,7 @@ export default function SingleRequestPage() {
 								variant="default"
 								icon={FileIcon}
 								iconVariant="primary"
-								link="#"
+								onClick={() => getDownloadURLImage(data?.refund?.receipt?.id!)}
 							>
 								Abrir comprovante
 							</NavLink>
@@ -76,7 +100,8 @@ export default function SingleRequestPage() {
 
 								<AlertDialog.Portal>
 									<AlertDialog.Overlay className="fixed inset-0 bg-gray-100/80" />
-									<AlertDialog.Content className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-2xl shadow-xl w-lg" asChild>
+									<AlertDialog.Content className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-2xl shadow-xl w-lg"
+										asChild>
 										<Card>
 											<AlertDialog.Title className="text-[20px] font-semibold">
 												Excluir solicitação
@@ -91,13 +116,15 @@ export default function SingleRequestPage() {
 														className="flex justify-center items-center"
 														variant="default"
 														iconVariant="primary"
-														link="#"
 													>
 														Cancelar
 													</NavLink>
 												</AlertDialog.Cancel>
 												<AlertDialog.Action asChild>
-													<Button variant="default">Confirmar</Button>
+													<Button
+														variant="default"
+														onClick={() => handleDeleteRefund()}
+													>Confirmar</Button>
 												</AlertDialog.Action>
 											</div>
 										</Card>
@@ -105,7 +132,7 @@ export default function SingleRequestPage() {
 								</AlertDialog.Portal>
 							</AlertDialog.Root>
 						</div>
-					</form>
+					</div>
 				</div>
 			</Card>
 		</div>
